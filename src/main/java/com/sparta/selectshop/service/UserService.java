@@ -7,5 +7,5 @@ public interface UserService {
 
     User registerUser(SignupRequestDto requestDto);
 
-    void kakaoLogin(String authorizedCode);
+    String kakaoLogin(String authorizedCode);
 }

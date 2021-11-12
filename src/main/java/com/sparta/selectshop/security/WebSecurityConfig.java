@@ -1,5 +1,8 @@
 package com.sparta.selectshop.security;
 
+import com.sparta.selectshop.controller.JwtAuthenticationEntryPoint;
+import com.sparta.selectshop.controller.JwtAuthenticationFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -7,12 +10,18 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity // 스프링 Security 지원을 가능하게 함
 @EnableGlobalMethodSecurity(securedEnabled = true) // 컨트롤러에서 인가가 필요한 API에 @Secured 사용가능
+@RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtAuthenticationFilter jwtRequestFilter;
 
     @Bean
     public BCryptPasswordEncoder encodePassword() {
@@ -25,19 +34,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
 
         http.authorizeRequests()
-                // image 폴더를 login 없이 허용
                 .antMatchers("/images/**").permitAll()
-                // css 폴더를 login 없이 허용
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/user/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
-                // 그 외 모든 요청은 인증과정 필요
+                .antMatchers("/basic.js").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/login/kakao").permitAll()
+                .antMatchers("/signup").permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/docs/**").permitAll()
                 .anyRequest().authenticated()
+                .and()
+                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .formLogin()
                 .loginPage("/user/login")
-                .usernameParameter("email")
-                .loginProcessingUrl("/user/login")
+                .failureUrl("/user/login/error")
                 .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
@@ -47,6 +62,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/user/forbidden");
+
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean

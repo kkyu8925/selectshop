@@ -12,11 +12,10 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 public class KakaoOAuth2 {
-    public KakaoUserInfo getUserInfo(String authorizedCode) {
-        // 1. 인가코드 -> 액세스 토큰
-        String accessToken = getAccessToken(authorizedCode);
+
+    public KakaoUserInfo getUserInfo(String token) {
         // 2. 액세스 토큰 -> 카카오 사용자 정보
-        KakaoUserInfo userInfo = getUserInfoByToken(accessToken);
+        KakaoUserInfo userInfo = getUserInfoByToken(token);
 
         return userInfo;
     }
@@ -29,7 +28,7 @@ public class KakaoOAuth2 {
         // HttpBody 오브젝트 생성
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "authorization_code");
-        params.add("client_id", "{REST_API_KEY}");
+        params.add("client_id", "0a62c7bd9779acbb76956669d3e60942");
         params.add("redirect_uri", "http://localhost:8080/user/kakao/callback");
         params.add("code", authorizedCode);
 
