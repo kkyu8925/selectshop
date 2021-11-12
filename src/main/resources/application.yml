@@ -1,0 +1,35 @@
+spring:
+  h2:
+    console:
+      enabled: true
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:./myselectdb;AUTO_SERVER=TRUE # DB connect url - jdbc:h2:file:./myselectdb;AUTO_SERVER=TRUE
+    username: sa
+    password:
+
+  thymeleaf:
+    prefix: classpath:/static/
+    cache: false
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        type:
+          descriptor:
+            sql: trace
+
+jwt:
+  secret: javainuse
