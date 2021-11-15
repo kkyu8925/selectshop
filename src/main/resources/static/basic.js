@@ -32,6 +32,7 @@ $(document).ready(function () {
     $('#search-area').hide();
 
     showProduct();
+    getFolders();
 
     $("#username").html(localStorage.getItem("username"));
     $("#logout-text").click(function () {
@@ -320,4 +321,22 @@ function setMyprice() {
             }
         }
     })
+}
+
+function getFolders() {
+    $.ajax({
+        type: 'GET',
+        url: `/api/folders`,
+        success: function (folders) {
+            let buttons = '';
+            for (let i = 0; i < folders.length; i++) {
+                buttons += `<div><button class="folder-bar-item folder-button product-folder"
+                                    value="${folders[i].id}"
+                                    text="${folders[i].name}"
+                                    onclick=openFolder(${folders[i].id})>${folders[i].name}
+                                </button></div>`
+            }
+            $("#folders").html(buttons)
+        }
+    });
 }
