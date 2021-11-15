@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+//@Component
 public class NaverShopSearch {
     public String search(String query) {
         RestTemplate rest = new RestTemplate();

@@ -33,3 +33,8 @@ logging:
 
 jwt:
   secret: javainuse
+
+naver:
+  url: https://openapi.naver.com
+  clientId: _aIj7Pjy9B9jEEcOplsa
+  clientSecret: mVakCW3ynn

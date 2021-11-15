@@ -255,8 +255,8 @@ function execSearch() {
         url: `/api/search?query=${query}`,
         success: function (response) {
             $('#search-result-box').empty();
-            for (let i = 0; i < response.length; i++) {
-                let itemDto = response[i];
+            for (let i = 0; i < response.items.length; i++) {
+                let itemDto = response.items[i];
                 let tempHtml = addHTML(itemDto);
                 $('#search-result-box').append(tempHtml);
             }
