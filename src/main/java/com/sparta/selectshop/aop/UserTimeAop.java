@@ -11,8 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-@Component // 스프링 IoC 에 빈으로 등록
-@Aspect
+//@Component // 스프링 IoC 에 빈으로 등록
+//@Aspect
 public class UserTimeAop {
     private final UserTimeRepository userTimeRepository;
 

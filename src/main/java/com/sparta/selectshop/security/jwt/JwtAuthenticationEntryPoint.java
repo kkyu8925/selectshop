@@ -1,4 +1,4 @@
-package com.sparta.selectshop.controller;
+package com.sparta.selectshop.security.jwt;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

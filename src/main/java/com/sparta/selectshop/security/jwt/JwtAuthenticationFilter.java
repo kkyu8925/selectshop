@@ -1,4 +1,4 @@
-package com.sparta.selectshop.controller;
+package com.sparta.selectshop.security.jwt;
 
 import com.sparta.selectshop.util.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;

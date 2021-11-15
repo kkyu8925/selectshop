@@ -1,7 +1,7 @@
 package com.sparta.selectshop.security;
 
-import com.sparta.selectshop.controller.JwtAuthenticationEntryPoint;
-import com.sparta.selectshop.controller.JwtAuthenticationFilter;
+import com.sparta.selectshop.security.jwt.JwtAuthenticationEntryPoint;
+import com.sparta.selectshop.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,16 +49,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .formLogin()
-                .loginPage("/user/login")
-                .failureUrl("/user/login/error")
-                .defaultSuccessUrl("/")
-                .permitAll()
-                .and()
-                .logout()
-                .logoutUrl("/user/logout")
-                .permitAll()
+//                .and()
+//                .formLogin()
+//                .loginPage("/user/login")
+//                .failureUrl("/user/login/error")
+//                .defaultSuccessUrl("/")
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .logoutUrl("/user/logout")
+//                .permitAll()
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/user/forbidden");
