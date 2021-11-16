@@ -1,13 +1,18 @@
 spring:
-  h2:
-    console:
-      enabled: true
+  #  h2:
+  #    console:
+  #      enabled: true
+
+  #  datasource:
+  #    driver-class-name: org.h2.Driver
+  #    url: jdbc:h2:./myselectdb;AUTO_SERVER=TRUE # DB connect url - jdbc:h2:file:./myselectdb;AUTO_SERVER=TRUE
+  #    username: sa
+  #    password:
 
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:./myselectdb;AUTO_SERVER=TRUE # DB connect url - jdbc:h2:file:./myselectdb;AUTO_SERVER=TRUE
-    username: sa
-    password:
+    url: jdbc:mysql://some-mysql/layer
+    username: root
+    password: 1234
 
   thymeleaf:
     prefix: classpath:/static/
